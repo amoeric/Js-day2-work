@@ -4,8 +4,14 @@
 // ]
 // 回傳 items 的總金額
 function totalPrice(items) {
-  return
-}
+  
+  var PartTotalPrice = items.map(function(x){return x.price * x.amount});
+  var TotalPrice = 0;
+  for(i = 0; i < items.length; i++){
+     TotalPrice += PartTotalPrice[i];
+  }
+  return TotalPrice;
+} 
 
 // 回傳打折後的總金額
 // 打折的規則：
@@ -13,7 +19,20 @@ function totalPrice(items) {
 //   超過 3000 元 -> 八折
 //   其它原價
 function discountedTotal(items) {
-  return
+  var PartTotalPrice = items.map(function(x){return x.price * x.amount});
+  var TotalPrice = 0;
+
+  for(i = 0; i < items.length; i++){
+     TotalPrice += PartTotalPrice[i];
+  }
+    if(TotalPrice > 3000){
+      return TotalPrice *0.8;
+    }else if(TotalPrice > 1000){
+      return TotalPrice *0.9;
+    }else{
+      return TotalPrice;
+    }
+
 }
 
 // 回傳一張訂單，是一個物件，
@@ -23,7 +42,13 @@ function discountedTotal(items) {
 // 3. total: 打折後的總金額
 // 4. id: 1
 function toOrder(items) {
-  return
+  var order = {
+  orderTime: new Date(),
+  items: items,
+  total: discountedTotal(items),
+  id: 1
+  }
+  return order;
 }
 
 // 如果需要的話，你可以定義自己的輔助用函式
