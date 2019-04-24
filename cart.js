@@ -5,12 +5,8 @@
 // 回傳 items 的總金額
 function totalPrice(items) {
   
-  var PartTotalPrice = items.map(function(x){return x.price * x.amount});
-  var TotalPrice = 0;
-  for(i = 0; i < items.length; i++){
-     TotalPrice += PartTotalPrice[i];
-  }
-  return TotalPrice;
+  return items.map(function(x){return x.price * x.amount})
+  .reduce(function(prev, element) {return prev + element;}, 0);
 } 
 
 // 回傳打折後的總金額
@@ -19,12 +15,9 @@ function totalPrice(items) {
 //   超過 3000 元 -> 八折
 //   其它原價
 function discountedTotal(items) {
-  var PartTotalPrice = items.map(function(x){return x.price * x.amount});
-  var TotalPrice = 0;
-
-  for(i = 0; i < items.length; i++){
-     TotalPrice += PartTotalPrice[i];
-  }
+  var TotalPrice = items.map(function(x){return x.price * x.amount})
+  .reduce(function(prev, element) {return prev + element;}, 0);
+  
     if(TotalPrice > 3000){
       return TotalPrice *0.8;
     }else if(TotalPrice > 1000){
